@@ -95,11 +95,8 @@ makeListVHDLcomments vhdlcontent =
 --makeListVHDLInfoEntities vhdlcomments = do
 
 getLastInfoEntity :: Maybe [String] -> Maybe InfoEntity -> Maybe InfoEntity
-getLastInfoEntity (Just vhdlcomments) (Just infoen) =
-    if (length vhdlcomments) == 0 then
-        Just infoen
-    else
-        getLastInfoEntity (Just (drop 1 vhdlcomments)) (updateInfoEntity (head vhdlcomments) (Just infoen))
+getLastInfoEntity (Just []) (Just infoen) = Just infoen
+getLastInfoEntity (Just (x:vhdlcomments)) (Just infoen) = getLastInfoEntity (Just vhdlcomments) (updateInfoEntity x (Just infoen))
    
         
 
